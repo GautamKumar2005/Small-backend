@@ -1,0 +1,12 @@
+{
+  "name": "smallest-backend",
+  "version": "1.0.0",
+  "description": "A very small backend with two JSON endpoints",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
