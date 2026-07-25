@@ -4,9 +4,7 @@ dist/
 build/
 .next/
 *.log
-.DS_Store
-Thumbs.db
-*.db
-tasks.db
-__pycache__/
+.git
+__pycache__
 *.pyc
+*.md
