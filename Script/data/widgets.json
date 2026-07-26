@@ -1,0 +1,35 @@
+[
+  {
+    "id": "wdg-demo-123",
+    "tenantId": "tenant-admin",
+    "name": "TechCorp Lead Magnet CTA",
+    "type": "popover",
+    "copy": {
+      "title": "Join 10,000+ AI Engineers",
+      "subtitle": "Get our weekly digest on Agentic Systems, RAG, and production LLMs.",
+      "ctaText": "Subscribe Now",
+      "successMessage": "Welcome aboard! Check your inbox for confirmation."
+    },
+    "fields": [
+      {
+        "name": "name",
+        "label": "Full Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "email",
+        "label": "Work Email",
+        "type": "email",
+        "required": true
+      }
+    ],
+    "targeting": {
+      "delaySeconds": 1,
+      "showOncePerVisitor": false
+    },
+    "version": 1,
+    "createdAt": "2026-07-26T16:02:16.648Z",
+    "updatedAt": "2026-07-26T16:02:16.648Z"
+  }
+]

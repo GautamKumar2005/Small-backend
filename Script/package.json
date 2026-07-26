@@ -1,0 +1,29 @@
+{
+  "name": "embeddable-widget-platform",
+  "version": "1.0.0",
+  "description": "Week 9 Capstone: Embeddable Widget & Lead-Capture Platform with CORS, Rate Limiting, Enrichment Fallback, and Abuse Controls",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/capstone.test.js"
+  },
+  "keywords": [
+    "widget",
+    "lead-capture",
+    "cors",
+    "enrichment",
+    "capstone",
+    "security"
+  ],
+  "author": "FlyRank AI Backend Engineering",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}

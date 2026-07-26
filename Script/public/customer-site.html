@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechCorp Engineering Blog | How to Architect Agentic Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+      padding: 48px 20px;
+    }
+    .blog-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .origin-badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.2);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .author-meta {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 24px;
+    }
+    p {
+      font-size: 17px;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+    }
+    .info-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 32px 0;
+      font-size: 15px;
+    }
+    .info-box code {
+      color: #818cf8;
+      background: rgba(0,0,0,0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="blog-container">
+    <div class="origin-badge">🌐 Customer Site Origin: http://localhost:3001</div>
+    <h1>How to Architect Production AI & RAG Agents</h1>
+    <div class="author-meta">
+      <span>By Gautam Engineering Team</span>
+      <span>•</span>
+      <span>Published July 2026</span>
+      <span>•</span>
+      <span>5 min read</span>
+    </div>
+
+    <p>
+      Building scalable AI engineering systems requires carefully designed backend architectures. When exposing public APIs to untrusted browsers across the public internet, you must implement strict boundary validation, CORS headers, and multi-layered spam controls.
+    </p>
+
+    <div class="info-box">
+      <strong>✨ Notice the bottom-right popover widget!</strong><br>
+      This customer blog page is served from a separate origin (<code>http://localhost:3001</code>). It embeds the FlyRank lead-capture widget using a single line of script code from the primary CDN origin (<code>http://localhost:3000/cdn/widget.js</code>).
+    </div>
+
+    <p>
+      When a visitor submits the popover form, the widget sends a cross-origin CORS POST request to the backend. The server validates the payload, applies burst rate limiting, enriches the visitor's IP address with a 3-provider fallback chain, safely triggers confirmation notifications, and logs the clean lead in the owner dashboard.
+    </p>
+
+    <p>
+      Try submitting your name and email in the widget popover in the bottom right corner! Then visit <a href="http://localhost:3000/dashboard.html" target="_blank" style="color: #818cf8;">http://localhost:3000/dashboard.html</a> to watch your enriched lead appear in real-time.
+    </p>
+  </div>
+
+  <!-- ONE-LINE EMBED SCRIPT FROM PRIMARY CDN ORIGIN (http://localhost:3000) -->
+  <script src="http://localhost:3000/cdn/widget.js" data-widget-id="wdg-demo-123" async defer></script>
+</body>
+</html>

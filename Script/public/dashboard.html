@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlyRank AI — Owner Dashboard | Lead-Capture & Embeddable Widget Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(18, 24, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+      padding: 32px 20px;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    .brand-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border: none;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    /* Main Layout */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+    }
+    @media (max-width: 992px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    /* Submissions Table */
+    .table-container {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .badge-primary {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-secondary {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .badge-fallback {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .badge-spam {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    /* Embed Code Box */
+    .embed-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #818cf8;
+      word-break: break-all;
+      position: relative;
+      margin-top: 12px;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    /* Attack Panel */
+    .attack-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .attack-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .attack-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .attack-btn-title {
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .attack-btn-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    /* Toggle switch */
+    .provider-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      margin-bottom: 10px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--success);
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .log-terminal {
+      background: #000;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #34d399;
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">FR</div>
+        <div>
+          <div class="brand-title">FlyRank AI</div>
+          <div class="brand-subtitle">Embeddable Widget & Lead-Capture Platform (Capstone)</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="http://localhost:3001/customer-site.html" target="_blank" class="btn">
+          🌐 Open Demo Customer Site (Origin :3001)
+        </a>
+        <button class="btn btn-primary" onclick="loadDashboard()">🔄 Refresh Stats</button>
+        <button class="btn btn-danger" onclick="resetDemoData()">⚠️ Reset Demo</button>
+      </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Submissions</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-desc">Captured across all origins</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Valid Leads (Clean)</div>
+        <div class="stat-value" id="stat-valid" style="color: #34d399;">0</div>
+        <div class="stat-desc">Enriched with IP→Geo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Spam Blocked</div>
+        <div class="stat-value" id="stat-spam" style="color: #f87171;">0</div>
+        <div class="stat-desc">Honeypot / timing / bot filter</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Conversion Rate</div>
+        <div class="stat-value" id="stat-conv">0.0%</div>
+        <div class="stat-desc">Clean leads vs total</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-layout">
+      <!-- Left Column: Submissions -->
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <span>Captured Lead Submissions</span>
+            <span style="font-size: 13px; color: var(--text-muted);" id="sub-count-label">0 items</span>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lead Details</th>
+                  <th>IP Address</th>
+                  <th>Geo Location</th>
+                  <th>Geo Provider</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="submissions-tbody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading submissions...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>One-Line Embed Script (CDN Asset)</span>
+            <span class="badge badge-primary">Cache-Control: public, max-age=3600</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted);">
+            Copy this snippet and paste it into any external website's HTML to embed your lead-capture CTA widget:
+          </p>
+          <div class="embed-box">
+            <code id="embed-code-text">&lt;script src="http://localhost:3000/cdn/widget.js" data-widget-id="wdg-demo-123" async defer&gt;&lt;/script&gt;</code>
+            <button class="copy-btn" onclick="copyEmbedCode()">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Attack Panel & Geo Provider Chain -->
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <span>⚡ Resilience & Attack Demo</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Test production hardening against untrusted browser inputs:
+          </p>
+          <div class="attack-panel">
+            <button class="attack-btn" onclick="testCorsRequest()">
+              <div class="attack-btn-title">🌐 1. Test Cross-Origin CORS Preflight</div>
+              <div class="attack-btn-desc">Verify OPTIONS preflight & Access-Control-Allow-Origin headers</div>
+            </button>
+            <button class="attack-btn" onclick="testRateLimitBurst()">
+              <div class="attack-btn-title">🔥 2. Trigger Rate-Limit Burst (12x POSTs)</div>
+              <div class="attack-btn-desc">Send rapid burst to trigger HTTP 429 Too Many Requests</div>
+            </button>
+            <button class="attack-btn" onclick="testSpamHoneypot()">
+              <div class="attack-btn-title">🤖 3. Send Bot Spam (Honeypot Trap)</div>
+              <div class="attack-btn-desc">Submit form with hidden _hp_trap field to test 422 spam reject</div>
+            </button>
+            <button class="attack-btn" onclick="testOversizedPayload()">
+              <div class="attack-btn-title">📦 4. Send Oversized Payload (>10 KB)</div>
+              <div class="attack-btn-desc">Submit large garbage JSON to test HTTP 413 Payload Too Large</div>
+            </button>
+          </div>
+          <div class="log-terminal" id="attack-terminal">
+            > Ready for attack simulation...
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>🔄 3-Provider Geo Fallback Chain</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+            Toggle upstream providers down to demonstrate deterministic failover:
+          </p>
+          <div class="provider-toggle">
+            <div>
+              <div style="font-weight: 500; font-size: 14px;">1. Primary Provider (mock-geo-primary)</div>
+              <div style="font-size: 12px; color: var(--text-muted);">High precision US Geo API</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-primary" checked onchange="toggleProvider('mock-geo-primary', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="provider-toggle">
+            <div>
+              <div style="font-weight: 500; font-size: 14px;">2. Secondary Provider (mock-geo-secondary)</div>
+              <div style="font-size: 12px; color: var(--text-muted);">UK Failover Geo API</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-secondary" checked onchange="toggleProvider('mock-geo-secondary', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="provider-toggle">
+            <div>
+              <div style="font-weight: 500; font-size: 14px;">3. Fallback Provider (mock-geo-fallback)</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Ultimate local Geo fallback</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-fallback" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+            ℹ️ Turn OFF Primary to watch submissions automatically failover to Secondary/Fallback!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let authToken = '';
+
+    async function initDashboard() {
+      try {
+        const res = await fetch('/api/admin/demo-token');
+        const data = await res.json();
+        authToken = data.token;
+        await loadDashboard();
+      } catch (err) {
+        console.error('Failed to init dashboard:', err);
+      }
+    }
+
+    async function loadDashboard() {
+      if (!authToken) return;
+      try {
+        // Load stats
+        const resStats = await fetch('/api/admin/stats', {
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const dataStats = await resStats.json();
+        if (dataStats.success) {
+          document.getElementById('stat-total').innerText = dataStats.stats.totalSubmissions;
+          document.getElementById('stat-valid').innerText = dataStats.stats.validSubmissions;
+          document.getElementById('stat-spam').innerText = dataStats.stats.spamBlocked;
+          document.getElementById('stat-conv').innerText = dataStats.stats.conversionRate;
+
+          // Sync toggles
+          if (dataStats.providerStatus) {
+            document.getElementById('toggle-primary').checked = dataStats.providerStatus['mock-geo-primary'];
+            document.getElementById('toggle-secondary').checked = dataStats.providerStatus['mock-geo-secondary'];
+          }
+        }
+
+        // Load submissions
+        const resSub = await fetch('/api/admin/submissions?includeSpam=true', {
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        const dataSub = await resSub.json();
+        if (dataSub.success) {
+          renderSubmissions(dataSub.submissions);
+        }
+      } catch (err) {
+        console.error('Failed to load dashboard:', err);
+      }
+    }
+
+    function renderSubmissions(list) {
+      const tbody = document.getElementById('submissions-tbody');
+      document.getElementById('sub-count-label').innerText = `${list.length} items`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">No submissions yet. Use the Demo Customer Site or Attack Panel to send leads!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(sub => {
+        let badgeClass = 'badge-fallback';
+        if (sub.geoProvider === 'mock-geo-primary') badgeClass = 'badge-primary';
+        else if (sub.geoProvider === 'mock-geo-secondary') badgeClass = 'badge-secondary';
+
+        const statusBadge = sub.isSpam 
+          ? `<span class="badge badge-spam">SPAM BLOCKED</span>`
+          : `<span class="badge badge-primary">CLEAN LEAD</span>`;
+
+        const locationText = sub.geo 
+          ? `${sub.geo.city || ''}, ${sub.geo.region || ''} (${sub.geo.country || 'Unknown'})`
+          : 'Unknown Location';
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 600;">${sub.data.name || 'Anonymous User'}</div>
+              <div style="font-size: 12px; color: var(--text-muted);">${sub.data.email || 'no-email'}</div>
+            </td>
+            <td><code>${sub.ip}</code></td>
+            <td>${locationText}</td>
+            <td><span class="badge ${badgeClass}">${sub.geoProvider || 'unknown'}</span></td>
+            <td>${statusBadge}</td>
+            <td style="color: var(--text-muted);">${new Date(sub.createdAt).toLocaleTimeString()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleProvider(providerName, isUp) {
+      try {
+        await fetch('/api/admin/geo-toggle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({ provider: providerName, isUp })
+        });
+        logTerminal(`[Geo Fallback] Provider '${providerName}' toggled ${isUp ? 'UP (Active)' : 'DOWN (Failed/Offline)'}`);
+      } catch (err) {
+        console.error('Toggle error:', err);
+      }
+    }
+
+    async function testCorsRequest() {
+      logTerminal('> Testing OPTIONS Preflight & Access-Control headers...');
+      try {
+        const res = await fetch('/api/widgets/wdg-demo-123/submissions', {
+          method: 'OPTIONS',
+          headers: { 'Origin': 'http://localhost:3001' }
+        });
+        const acao = res.headers.get('Access-Control-Allow-Origin');
+        const acam = res.headers.get('Access-Control-Allow-Methods');
+        logTerminal(`[CORS PASS] HTTP ${res.status} | Access-Control-Allow-Origin: ${acao || '*'} | Methods: ${acam || 'GET, POST, OPTIONS'}`);
+      } catch (err) {
+        logTerminal(`[CORS Error] ${err.message}`);
+      }
+    }
+
+    async function testRateLimitBurst() {
+      logTerminal('> Sending rapid 12x POST burst from same IP/Widget...');
+      let blockedCount = 0;
+      for (let i = 1; i <= 12; i++) {
+        try {
+          const res = await fetch('/api/widgets/wdg-demo-123/submissions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: `Burst Lead #${i}`, email: `burst${i}@techcorp.io` })
+          });
+          if (res.status === 429) {
+            blockedCount++;
+            logTerminal(`[Request #${i}] HTTP 429 Too Many Requests (Rate limit triggered!)`);
+          } else {
+            logTerminal(`[Request #${i}] HTTP ${res.status} Lead Captured`);
+          }
+        } catch (err) {
+          logTerminal(`[Request #${i}] Error: ${err.message}`);
+        }
+      }
+      logTerminal(`[Rate Limit Summary] ${blockedCount} requests blocked with HTTP 429.`);
+      loadDashboard();
+    }
+
+    async function testSpamHoneypot() {
+      logTerminal('> Sending Bot Payload with hidden _hp_trap honeypot field...');
+      try {
+        const res = await fetch('/api/widgets/wdg-demo-123/submissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Spammy Bot',
+            email: 'bot@viagra-casino.xyz',
+            _hp_trap: 'http://spam-link.com'
+          })
+        });
+        const data = await res.json();
+        logTerminal(`[Spam Control] HTTP ${res.status} | ${data.message} | Reasons: ${data.reasons ? data.reasons.join(', ') : ''}`);
+        loadDashboard();
+      } catch (err) {
+        logTerminal(`[Error] ${err.message}`);
+      }
+    }
+
+    async function testOversizedPayload() {
+      logTerminal('> Sending 20 KB garbage JSON payload...');
+      try {
+        const largeString = 'a'.repeat(20000);
+        const res = await fetch('/api/widgets/wdg-demo-123/submissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: 'Oversized Lead', data: largeString })
+        });
+        const data = await res.json();
+        logTerminal(`[Validation] HTTP ${res.status} | ${data.message || data.error}`);
+      } catch (err) {
+        logTerminal(`[Error] ${err.message}`);
+      }
+    }
+
+    async function resetDemoData() {
+      try {
+        await fetch('/api/admin/reset', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        logTerminal('> All demo data reset to seed state.');
+        loadDashboard();
+      } catch (err) {
+        console.error('Reset error:', err);
+      }
+    }
+
+    function logTerminal(msg) {
+      const term = document.getElementById('attack-terminal');
+      term.innerHTML += `<div>${msg}</div>`;
+      term.scrollTop = term.scrollHeight;
+    }
+
+    function copyEmbedCode() {
+      const text = document.getElementById('embed-code-text').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Embed <script> copied to clipboard!');
+    }
+
+    window.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+</body>
+</html>
